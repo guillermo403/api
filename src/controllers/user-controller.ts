@@ -1,19 +1,10 @@
-import { Request, Response } from "express"
+import { ControllerFunction } from "../types/express"
 
-const UserController = {
-  getUsers,
-  createUser,
-  getUserById,
-  updateUser,
-  deleteUser
-}
-export default UserController
-
-function getUsers (_req: Request, res: Response) {
+const getUsers: ControllerFunction = (req, res) => {
   res.send('get users')
 }
 
-function createUser (req: Request, res: Response) {
+const createUser: ControllerFunction = (req, res) => {
   const {
     name,
     email,
@@ -22,12 +13,12 @@ function createUser (req: Request, res: Response) {
   res.send('create user')
 }
 
-function getUserById (req: Request, res: Response) {
+const getUserById: ControllerFunction = (req, res) => {
   const { id } = req.params
   res.send(`get user by id: ${id}`)
 }
 
-function updateUser (req: Request, res: Response) {
+const updateUser: ControllerFunction = (req, res) => {
   const { id } = req.params
   const {
     name,
@@ -37,7 +28,16 @@ function updateUser (req: Request, res: Response) {
   res.send(`update user by id: ${id}`)
 }
 
-function deleteUser (req: Request, res: Response) {
+const deleteUser: ControllerFunction = (req, res) => {
   const { id } = req.params
   res.send(`delete user by id: ${id}`)
 }
+
+const UserController = {
+  getUsers,
+  createUser,
+  getUserById,
+  updateUser,
+  deleteUser
+}
+export default UserController

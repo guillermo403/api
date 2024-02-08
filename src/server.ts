@@ -1,25 +1,26 @@
-import express, { NextFunction, Request, Response } from 'express'
+import express from 'express'
 import dotenv from 'dotenv'
 import router from './router'
 import { getDate } from './utils/dates-helper'
 import logger from './utils/logger'
+import { ControllerFunction } from './types/express'
 
 export default () => {
   dotenv.config()
 
   const app = express()
+  const port = process.env.PORT ?? 1234
+
   app.use(express.json())
   app.use('*', logRequest)
   router(app)
 
-  const port = process.env.PORT ?? 1234
-  
   app.listen(port, () => {
     logger.info(`Server listening on port ${port}`)
   })
 }
 
-function logRequest (req: Request, _res: Response, next: NextFunction) {
+const logRequest: ControllerFunction = function (req, _res, next) {
   const { method, originalUrl } = req
   const ip = req.ip
     ?.replace('::ffff:', '')
