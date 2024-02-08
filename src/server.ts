@@ -8,6 +8,7 @@ export default () => {
   dotenv.config()
 
   const app = express()
+  app.use(express.json())
   app.use('*', logRequest)
   router(app)
 
@@ -20,7 +21,10 @@ export default () => {
 
 function logRequest (req: Request, _res: Response, next: NextFunction) {
   const { method, originalUrl } = req
+  const ip = req.ip
+    ?.replace('::ffff:', '')
+    ?.replace('::1', '127.0.0.1')
   const date = getDate()
-  console.log(`${date} [${method.toUpperCase()}] # ${originalUrl}`)
+  console.log(`${date} # ${ip} => [${method.toUpperCase()}] # ${originalUrl}`)
   next()
 }
