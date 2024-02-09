@@ -1,15 +1,10 @@
-import { ControllerFunction } from "../types/express"
+import { type ControllerFunction } from '../types/express'
 
-const getUsers: ControllerFunction = (req, res) => {
+const getUsers: ControllerFunction = (_req, res) => {
   res.send('get users')
 }
 
-const createUser: ControllerFunction = (req, res) => {
-  const {
-    name,
-    email,
-    password
-  } = req.body
+const createUser: ControllerFunction = (_req, res) => {
   res.send('create user')
 }
 
@@ -20,11 +15,6 @@ const getUserById: ControllerFunction = (req, res) => {
 
 const updateUser: ControllerFunction = (req, res) => {
   const { id } = req.params
-  const {
-    name,
-    email,
-    password
-  } = req.body
   res.send(`update user by id: ${id}`)
 }
 

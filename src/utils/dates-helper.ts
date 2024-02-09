@@ -1,32 +1,16 @@
-import addZeros from "./add-zeros"
+import addZeros from './add-zeros'
 
-type ValidFormats =
+type ValidFormat =
   | 'YYYY-MM-DD HH:mm:ss'
   | 'YYYY/MM/DD HH:mm:ss'
   | 'DD/MM/YYYY HH:mm:ss'
   | 'DD-MM-YYYY HH:mm:ss'
 
 interface Props {
-  format?: ValidFormats
+  format: ValidFormat
 }
 
-export const getDate = ({ format }: Props = {}) => {
-  if (format) {
-    return getFormattedDate(format)
-  }
-  
-  const d = new Date()
-  const date = d.getFullYear() + '-' +
-    addZeros(2, d.getMonth() + 1) + '-' +
-    addZeros(2, d.getDate()) + ' ' +
-    addZeros(2, d.getHours()) + ':' +
-    addZeros(2, d.getMinutes()) + ':' +
-    addZeros(2, d.getSeconds())
-
-  return date
-}
-
-function getFormattedDate (format: ValidFormats) {
+export const getDate = ({ format }: Props = { format: 'DD/MM/YYYY HH:mm:ss' }): ValidFormat => {
   const d = new Date()
   const date = format
     .replace('YYYY', d.getFullYear().toString())
@@ -36,5 +20,5 @@ function getFormattedDate (format: ValidFormats) {
     .replace('mm', addZeros(2, d.getMinutes()))
     .replace('ss', addZeros(2, d.getSeconds()))
 
-  return date
+  return date as ValidFormat
 }

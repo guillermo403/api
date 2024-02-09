@@ -3,9 +3,9 @@ import dotenv from 'dotenv'
 import router from './router'
 import { getDate } from './utils/dates-helper'
 import logger from './utils/logger'
-import { ControllerFunction } from './types/express'
+import { type ControllerFunction } from './types/express'
 
-export default () => {
+export default (): void => {
   dotenv.config()
 
   const app = express()
